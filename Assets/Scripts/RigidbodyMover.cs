@@ -5,7 +5,7 @@ public class RigidbodyMover : MonoBehaviour
 {
     [SerializeField] private float _speed;
     [SerializeField] private float _stopDistance;
-    [SerializeField] private Transform _target;
+    [SerializeField] private Player _player;
 
     private Rigidbody _rigidbody;
 
@@ -21,16 +21,13 @@ public class RigidbodyMover : MonoBehaviour
 
     private void Chase()
     {
-        if (_target != null)
-        {
-            Vector3 direction = (_target.position - transform.position).normalized;
-            float distance = Vector3.Distance(transform.position, _target.position);
+        Vector3 direction = (_player.transform.position - transform.position).normalized;
+        float distance = Vector3.Distance(transform.position, _player.transform.position);
 
-            if (distance > _stopDistance)
-            {
-                Vector3 moveVector = direction * _speed * Time.deltaTime;
-                _rigidbody.MovePosition(transform.position + moveVector);
-            }
+        if (distance > _stopDistance)
+        {
+            Vector3 moveVector = direction * _speed * Time.deltaTime;
+            _rigidbody.MovePosition(transform.position + moveVector);
         }
     }
 }
